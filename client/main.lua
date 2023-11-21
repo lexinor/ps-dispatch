@@ -1,4 +1,3 @@
-QBCore = exports['qb-core']:GetCoreObject()
 PlayerData = {}
 inHuntingZone, inNoDispatchZone = false, false
 huntingzone, nodispatchzone = nil , nil
@@ -17,7 +16,7 @@ local function toggleUI(bool)
 end
 
 local function setupDispatch()
-    PlayerData = QBCore.Functions.GetPlayerData()
+    PlayerData = ESX.GetPlayerData()
     local locales = lib.getLocales()
 
     Wait(1000)
@@ -275,12 +274,18 @@ RegisterNetEvent('ps-dispatch:client:openMenu', function(data)
     end
 end)
 
--- EventHandlers
-RegisterNetEvent("QBCore:Client:OnJobUpdate", setupDispatch)
+-- Events from ESX
+RegisterNetEvent('esx:playerLoaded', function(xPlayer, isNew)
+	setupDispatch()
+end)
 
-AddEventHandler('QBCore:Client:OnPlayerLoaded', setupDispatch)
+RegisterNetEvent('esx:playerLogout', function()
+    removeZones()
+end)
 
-AddEventHandler('QBCore:Client:OnPlayerUnload', removeZones)
+RegisterNetEvent('esx:setJob', function(job)
+	setupDispatch()
+end)
 
 AddEventHandler('onResourceStart', function(resourceName)
     if resourceName ~= GetCurrentResourceName() then return end

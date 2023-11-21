@@ -17,13 +17,12 @@ function GetPlayerGender()
 end
 
 function GetIsHandcuffed()
-    return QBCore.Functions.GetPlayerData()?.metadata?.ishandcuffed
+    return LocalPlayer.state?.hancuffed
 end
 
 function IsOnDuty()
-    PlayerData = QBCore.Functions.GetPlayerData()
     if Config.OnDutyOnly then
-        if PlayerData.job.onduty then
+        if LocalPlayer.state?.onduty then
             return true
         else
             return false
@@ -35,7 +34,8 @@ end
 ---@return boolean
 local function HasPhone()
     for _, item in ipairs(Config.PhoneItems) do
-        if QBCore.Functions.HasItem(item) then
+        local count = exports.ox_inventory:GetItemCount(item)
+        if count > 0 then
             return true
         end
     end
