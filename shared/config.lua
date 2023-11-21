@@ -25,7 +25,7 @@ Config.DefaultAlerts = {
 Config.MinOffset = 1
 Config.MaxOffset = 120
 
-Config.PhoneRequired = false -- Set true if only can use 911/311 command when got a phone on inventory.
+Config.PhoneRequired = true -- Set true if only can use 911/311 command when got a phone on inventory.
 Config.PhoneItems = { -- Add the entire list of your phone items.
     "phone",
 }
@@ -131,6 +131,16 @@ Config.Blips = {
         flash = false
     },
     ['officerdown'] = {
+        radius = 15.0,
+        sprite = 526,
+        color = 1,
+        scale = 1.5,
+        length = 2,
+        sound = 'panicbutton',
+        offset = false,
+        flash = true
+    },
+    ['officerbackup'] = {
         radius = 15.0,
         sprite = 526,
         color = 1,
